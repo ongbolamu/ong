@@ -1,0 +1,359 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modèle pour les actualités
+model Actualite {
+  id          String   @id @default(cuid())
+  titre       String
+  contenu     String
+  image       String?
+  auteur      String
+  datePublie  DateTime @default(now())
+  dateModifie DateTime @updatedAt
+  statut      StatutArticle @default(BROUILLON)
+  categories  CategorieActualite[]
+  
+  @@map("actualites")
+}
+
+// Modèle pour les catégories d'actualités
+model CategorieActualite {
+  id          String   @id @default(cuid())
+  nom         String   @unique
+  description String?
+  couleur     String   @default("#ff6219")
+  actualites  Actualite[]
+  
+  @@map("categories_actualites")
+}
+
+// Modèle pour les actions/projets
+model Action {
+  id          String   @id @default(cuid())
+  titre       String
+  description String
+  contenu     String
+  image       String?
+  dateDebut   DateTime
+  dateFin     DateTime?
+  statut      StatutAction @default(PLANIFIE)
+  budget      Decimal?
+  localisation String
+  objectifs   String[]
+  resultats   String[]
+  programmeId String?
+  programme   Programme? @relation(fields: [programmeId], references: [id])
+  partenaires ActionPartenaire[]
+  beneficiaires ActionBeneficiaire[]
+  
+  @@map("actions")
+}
+
+// Modèle pour les partenaires d'actions
+model ActionPartenaire {
+  id        String @id @default(cuid())
+  actionId  String
+  nom       String
+  type      TypePartenaire
+  role      String?
+  action    Action @relation(fields: [actionId], references: [id], onDelete: Cascade)
+  
+  @@map("actions_partenaires")
+}
+
+// Modèle pour les bénéficiaires d'actions
+model ActionBeneficiaire {
+  id        String @id @default(cuid())
+  actionId  String
+  nombre    Int
+  type      TypeBeneficiaire
+  age       String?
+  genre     Genre?
+  action    Action @relation(fields: [actionId], references: [id], onDelete: Cascade)
+  
+  @@map("actions_beneficiaires")
+}
+
+// Modèle pour l'équipe
+model MembreEquipe {
+  id          String   @id @default(cuid())
+  nom         String
+  prenom      String
+  poste       String
+  bio         String?
+  image       String?
+  email       String?  @unique
+  telephone   String?
+  reseauxSociaux Json?  // {linkedin, twitter, facebook}
+  dateAdhesion DateTime @default(now())
+  statut      StatutMembre @default(ACTIF)
+  
+  @@map("equipe")
+}
+
+// Modèle pour les programmes
+model Programme {
+  id          String   @id @default(cuid())
+  nom         String
+  description String
+  objectifs   String[]
+  domaines    DomaineProgramme[]
+  dateCreation DateTime @default(now())
+  statut      StatutProgramme @default(ACTIF)
+  budget      Decimal?
+  actions     Action[]
+  
+  @@map("programmes")
+}
+
+// Modèle pour les domaines de programmes
+model DomaineProgramme {
+  id          String @id @default(cuid())
+  nom         String @unique
+  description String?
+  icone       String?
+  programmes  Programme[]
+  
+  @@map("domaines_programmes")
+}
+
+// Modèle pour les dons
+model Don {
+  id          String   @id @default(cuid())
+  montant     Decimal
+  devise      String   @default("XAF")
+  donateur    String
+  email       String?
+  telephone   String?
+  message     String?
+  dateDon     DateTime @default(now())
+  typeDon     TypeDon  @default(PONCTUEL)
+  statut      StatutDon @default(EN_ATTENTE)
+  methodePayement String?
+  referenceTransaction String? @unique
+  
+  @@map("dons")
+}
+
+// Modèle pour les bénévoles
+model Benevole {
+  id          String   @id @default(cuid())
+  nom         String
+  prenom      String
+  email       String   @unique
+  telephone   String?
+  age         Int?
+  profession  String?
+  competences String[]
+  motivation  String?
+  disponibilite String?
+  dateInscription DateTime @default(now())
+  statut      StatutBenevole @default(EN_ATTENTE)
+  
+  @@map("benevoles")
+}
+
+// Modèle pour les partenaires
+model Partenaire {
+  id          String   @id @default(cuid())
+  nom         String
+  type        TypePartenaire
+  description String?
+  logo        String?
+  siteWeb     String?
+  contact     String?
+  datePartenariat DateTime @default(now())
+  statut      StatutPartenaire @default(ACTIF)
+  
+  @@map("partenaires")
+}
+
+// Modèle pour les témoignages
+model Témoignage {
+  id          String   @id @default(cuid())
+  nom         String
+  poste       String?
+  contenu     String
+  image       String?
+  note        Int?     @default(5) // sur 5
+  dateCreation DateTime @default(now())
+  statut      StatutTemoignage @default(EN_ATTENTE)
+  
+  @@map("temoignages")
+}
+
+// Modèle pour les rapports de transparence
+model RapportTransparence {
+  id          String   @id @default(cuid())
+  titre       String
+  description String?
+  fichier     String   // URL du fichier PDF
+  annee       Int
+  type        TypeRapport
+  datePublication DateTime @default(now())
+  
+  @@map("rapports_transparence")
+}
+
+// Modèle pour les événements
+model Evenement {
+  id          String   @id @default(cuid())
+  titre       String
+  description String
+  dateDebut   DateTime
+  dateFin     DateTime
+  lieu        String
+  image       String?
+  prix        Decimal? @default(0)
+  placesMax   Int?
+  statut      StatutEvenement @default(PLANIFIE)
+  inscriptions InscriptionEvenement[]
+  
+  @@map("evenements")
+}
+
+// Modèle pour les inscriptions aux événements
+model InscriptionEvenement {
+  id          String   @id @default(cuid())
+  evenementId String
+  nom         String
+  prenom      String
+  email       String
+  telephone   String?
+  dateInscription DateTime @default(now())
+  statut      StatutInscription @default(CONFIRMEE)
+  evenement   Evenement @relation(fields: [evenementId], references: [id], onDelete: Cascade)
+  
+  @@unique([evenementId, email])
+  @@map("inscriptions_evenements")
+}
+
+// Modèle pour les statistiques
+model Statistique {
+  id          String   @id @default(cuid())
+  nom         String   @unique
+  valeur      Int
+  description String?
+  icone       String?
+  dateMAJ     DateTime @updatedAt
+  
+  @@map("statistiques")
+}
+
+// Enums
+enum StatutArticle {
+  BROUILLON
+  PUBLIE
+  ARCHIVE
+}
+
+enum StatutAction {
+  PLANIFIE
+  EN_COURS
+  TERMINE
+  SUSPENDU
+  ANNULE
+}
+
+enum StatutMembre {
+  ACTIF
+  INACTIF
+  ANCIEN
+}
+
+enum StatutProgramme {
+  ACTIF
+  INACTIF
+  TERMINE
+}
+
+enum StatutDon {
+  EN_ATTENTE
+  CONFIRME
+  REMBOURSE
+  ECHOUE
+}
+
+enum StatutBenevole {
+  EN_ATTENTE
+  ACCEPTE
+  REFUSE
+  ACTIF
+  INACTIF
+}
+
+enum StatutPartenaire {
+  ACTIF
+  INACTIF
+  SUSPENDU
+}
+
+enum StatutTemoignage {
+  EN_ATTENTE
+  PUBLIE
+  REFUSE
+}
+
+enum StatutEvenement {
+  PLANIFIE
+  EN_COURS
+  TERMINE
+  ANNULE
+}
+
+enum StatutInscription {
+  CONFIRMEE
+  ANNULEE
+  EN_ATTENTE
+}
+
+enum TypePartenaire {
+  GOUVERNEMENT
+  ONG
+  ENTREPRISE
+  FONDATION
+  UNIVERSITE
+  MEDIAS
+}
+
+enum TypeBeneficiaire {
+  ENFANTS
+  FEMMES
+  HOMMES
+  FAMILLES
+  COMMUNAUTE
+  ETUDIANTS
+  PERSONNES_AGEES
+}
+
+enum Genre {
+  MASCULIN
+  FEMININ
+  AUTRE
+}
+
+enum TypeDon {
+  PONCTUEL
+  MENSUEL
+  ANNUEL
+}
+
+enum TypeRapport {
+  FINANCIER
+  ACTIVITES
+  IMPACT
+  GOUVERNANCE
+}

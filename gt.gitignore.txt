@@ -1,0 +1,6 @@
+# Ignorer les dossiers système Windows
+AppData/
+*.log
+node_modules/
+.DS_Store
+Thumbs.db
