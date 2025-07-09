@@ -26,16 +26,18 @@
     }
   ],
   "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "ongbolamu.org"
-        }
-      ],
-      "destination": "https://www.ongbolamu.org/$1",
-      "permanent": true
-    }
+  {
+    "source": "/(.*)",
+    "has": [
+      {
+        "type": "host",
+        "value": "ongbolamu.org"
+      }
+    ],
+    "destination": "https://www.ongbolamu.org/$1",
+    "permanent": true
+  }
+]
+
   ]
 }
