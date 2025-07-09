@@ -31,10 +31,10 @@
       "has": [
         {
           "type": "host",
-          "value": "www.ongbolamu.org"
+          "value": "ongbolamu.org"
         }
       ],
-      "destination": "https://ongbolamu.org/$1",
+      "destination": "https://www.ongbolamu.org/$1",
       "permanent": true
     }
   ]
