@@ -656,7 +656,7 @@ export default function Home() {
             <motion.div 
               className="w-1/3 h-full bg-cover bg-center relative overflow-hidden"
               style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')`,
+                backgroundImage: `url('/images/backgrounds/back1.jpg')`,
                 backgroundSize: 'cover'
               }}
               animate={{ rotateZ: [0, 2, -1, 0] }}
@@ -674,7 +674,7 @@ export default function Home() {
             <motion.div 
               className="w-1/3 h-full bg-cover bg-center relative overflow-hidden"
               style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')`,
+                  backgroundImage: `url('/images/backgrounds/back1.jpg')`,
                 backgroundSize: 'cover'
               }}
               animate={{ scale: [1, 1.05, 1] }}
@@ -692,7 +692,7 @@ export default function Home() {
             <motion.div 
               className="w-1/3 h-full bg-cover bg-center relative overflow-hidden flex items-center justify-center"
               style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')`,
+                  backgroundImage: `url('/images/backgrounds/back1.jpg')`,
                 backgroundSize: 'cover'
               }}
             >

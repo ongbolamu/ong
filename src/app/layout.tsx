@@ -121,7 +121,7 @@ export default function RootLayout({
                 "addressLocality": "Brazzaville"
               },
               "sameAs": [
-                "https://facebook.com/ongbolamu",
+                "https://www.facebook.com/share/1PM38VxN7v/",
                 "https://twitter.com/ongbolamu"
               ]
             })
