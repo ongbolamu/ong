@@ -656,7 +656,7 @@ export default function Home() {
             <motion.div 
               className="w-1/3 h-full bg-cover bg-center relative overflow-hidden"
               style={{
-                backgroundImage: `url('/images/backgrounds/back1.jpg')`,
+                backgroundImage: `url('/images/backgrounds/back2.jpg')`,
                 backgroundSize: 'cover'
               }}
               animate={{ rotateZ: [0, 2, -1, 0] }}
@@ -674,7 +674,7 @@ export default function Home() {
             <motion.div 
               className="w-1/3 h-full bg-cover bg-center relative overflow-hidden"
               style={{
-                  backgroundImage: `url('/images/backgrounds/back1.jpg')`,
+                  backgroundImage: `url('/images/backgrounds/back2.jpg')`,
                 backgroundSize: 'cover'
               }}
               animate={{ scale: [1, 1.05, 1] }}
@@ -692,7 +692,7 @@ export default function Home() {
             <motion.div 
               className="w-1/3 h-full bg-cover bg-center relative overflow-hidden flex items-center justify-center"
               style={{
-                  backgroundImage: `url('/images/backgrounds/back1.jpg')`,
+                  backgroundImage: `url('/images/backgrounds/back2.jpg')`,
                 backgroundSize: 'cover'
               }}
             >
