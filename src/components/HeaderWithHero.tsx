@@ -32,10 +32,10 @@ export default function HeaderWithHero({ title, subtitle, showHero = true }: Hea
   
   // Images pour le slide (page d'accueil uniquement)
   const slideImages = [
-    'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80'
+    'https://www.ongbolamu.org/images/backgrounds/back2.jpg',
+    'https://www.ongbolamu.org/images/backgrounds/back2.jpg',
+    'https://www.ongbolamu.org/images/backgrounds/back2.jpg',
+    'https://www.ongbolamu.org/images/backgrounds/back2.jpg'
   ];
   
   // Obtenir l'arrière-plan pour la page actuelle
